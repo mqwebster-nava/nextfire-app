@@ -1,6 +1,7 @@
-import { auth, googleAuthProvider } from "@/lib/firebase";
+import { auth, googleAuthProvider } from '@/lib/firebase';
+import { signInWithPopup, signOut } from 'firebase/auth';
 
-export default function Page({}) {
+const Page: React.FC = ({}) => {
   const user = null;
   const username = null;
 
@@ -18,22 +19,25 @@ export default function Page({}) {
       )}
     </main>
   );
-}
+};
 
-function SignInButton() {
+export default Page;
+
+const SignInButton: React.FC = () => {
   const signInWithGoogle = async () => {
-    await auth.signInWithPopup(googleAuthProvider);
+    await signInWithPopup(auth, googleAuthProvider);
   };
 
   return (
-    <button className="btn-google" onClick={SignInButton}>
-      <img src={`/google.png`} /> Sign In With Google
+    <button className='btn-google' onClick={signInWithGoogle}>
+      <img src={`/google.png`} alt={'Google Logo'} />
+      Sign In With Google
     </button>
   );
-}
+};
 
-function SignOutButton() {
-  return <button onClick={() => auth.signOut()}>Sign Out</button>;
-}
+const SignOutButton: React.FC = () => {
+  return <button onClick={() => signOut(auth)}>Sign Out</button>;
+};
 
-function UsernameForm() {}
+const UsernameForm: React.FC = () => {};
